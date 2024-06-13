@@ -57,7 +57,7 @@ public class FuncinarioResource {
     public Response getPontoFuncionario(@PathParam("matricula") String matricula){
         Funcionario funcionario = informacoesFuncionario.getFuncionarioPorMatricula(matricula);
         System.out.println(funcionario);
-        return Response.ok().entity(informacoesFuncionario.getPontoFuncionario(funcionario.getId())).build();
+        return Response.ok().entity(informacoesFuncionario.getPontoFuncionario(funcionario)).build();
     }
 
     @POST
@@ -77,6 +77,10 @@ public class FuncinarioResource {
     @Path("/ponto")
     public Response registrarPonto(PontoDTO pontoDTO){
         Funcionario funcionario = informacoesFuncionario.getFuncionarioPorMatricula(pontoDTO.getMatricula());
+
+        if (funcionario == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Funcionario não encontrado").build();
+        }
 
         Ponto p = new Ponto();
         p.setData(pontoDTO.getData());

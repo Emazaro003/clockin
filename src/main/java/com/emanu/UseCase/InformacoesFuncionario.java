@@ -46,9 +46,7 @@ public class InformacoesFuncionario {
         return funcionarios.stream().map(f -> f.getUsuario().getMatricula()).toList();
     }
 
-    public List<PontoResponseDTO> getPontoFuncionario(long id) {
-        Funcionario funcionario = getFuncionario(id);
-
+    public List<PontoResponseDTO> getPontoFuncionario(Funcionario funcionario) {
         return pontoRepository.pontosDoFuncionario(funcionario);
     }
 

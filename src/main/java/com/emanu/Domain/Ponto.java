@@ -1,9 +1,6 @@
 package com.emanu.Domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -17,7 +14,7 @@ public class Ponto {
     @GeneratedValue
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     private Funcionario funcionario;
 
     private LocalDate data;
