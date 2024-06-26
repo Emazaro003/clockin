@@ -87,9 +87,12 @@ public class FuncinarioResource {
         p.setHora(pontoDTO.getHora());
         p.setFuncionario(funcionario);
 
-        gerenciarFuncionario.salvaPonto(p);
+        if (gerenciarFuncionario.salvaPonto(p)) {
+            return Response.created(URI.create("")).entity(p).build();
+        }
 
-        return Response.created(URI.create("")).entity(p).build();
+        return Response.status(Response.Status.BAD_REQUEST).entity("Nuero de ponos não pode ultrapassar 4").build();
+
     }
 
     private static UsuarioResponseDTO getUsuarioResponseDTO(Funcionario funcionario) {

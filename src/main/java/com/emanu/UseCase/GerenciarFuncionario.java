@@ -1,6 +1,7 @@
 package com.emanu.UseCase;
 
 import com.emanu.DTO.FuncionarioDTO;
+import com.emanu.DTO.PontoResponseDTO;
 import com.emanu.DTO.UsuarioDTO;
 import com.emanu.Domain.Funcionario;
 import com.emanu.Domain.Ponto;
@@ -13,6 +14,9 @@ import com.emanu.DTO.Mapper.DtoToDomain;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @ApplicationScoped
 public class GerenciarFuncionario {
@@ -48,8 +52,17 @@ public class GerenciarFuncionario {
     }
 
     @Transactional
-    public void salvaPonto(Ponto p){
-        pontoRepository.persist(p);
+    public Boolean salvaPonto(Ponto p){
+        List<PontoResponseDTO> pontos = pontoRepository.pontosDoFuncionario(p.getFuncionario());
+        pontos.forEach(ponto -> {
+            System.out.println(ponto.getData() + LocalDate.now().toString() + LocalDate.now().equals(ponto.getData()));
+        });
+        System.out.println("Pontos do dia: " + pontos.size());
+        if (pontos.size() < 4) {
+            pontoRepository.persist(p);
+            return true;
+        }
+        return false;
     }
 
 }
