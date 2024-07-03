@@ -21,6 +21,12 @@ public class PontoRepository implements PanacheRepository<Ponto> {
                 .map(this::PontoToPontoResponseDTO).toList();
     }
 
+    public List<PontoResponseDTO> pontosDoFuncionarioNoDia(Funcionario funcionario, LocalDate dia) {
+        return listAll().stream()
+                .filter(p -> p.getFuncionario().getUsuario().getMatricula().equals(funcionario.getUsuario().getMatricula()) && p.getData().equals(LocalDate.now()))
+                .map(this::PontoToPontoResponseDTO).toList();
+    }
+
     private PontoResponseDTO PontoToPontoResponseDTO(Ponto p) {
         PontoResponseDTO pontoResponseDTO = new PontoResponseDTO();
         pontoResponseDTO.setFuncionarioId(p.getFuncionario().getId());

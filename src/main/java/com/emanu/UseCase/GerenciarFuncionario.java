@@ -53,7 +53,7 @@ public class GerenciarFuncionario {
 
     @Transactional
     public Boolean salvaPonto(Ponto p){
-        List<PontoResponseDTO> pontos = pontoRepository.pontosDoFuncionario(p.getFuncionario());
+        List<PontoResponseDTO> pontos = pontoRepository.pontosDoFuncionarioNoDia(p.getFuncionario(), p.getData());
         pontos.forEach(ponto -> {
             System.out.println(ponto.getData() + LocalDate.now().toString() + LocalDate.now().equals(ponto.getData()));
         });

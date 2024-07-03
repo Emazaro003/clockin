@@ -95,6 +95,38 @@ public class FuncinarioResource {
 
     }
 
+    @GET
+    @Path("/detalhes/{matricula}")
+    public Response getFuncionarioByMatricula(@PathParam("matricula") String matricula) {
+        Funcionario funcionario = informacoesFuncionario.getFuncionarioPorMatricula(matricula);
+
+        if (funcionario == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Funcionario não encontrado").build();
+        }
+
+        FuncionarioRequestDTO funcionarioRequestDTO = convertToFuncionarioRequestDTO(funcionario);
+        return Response.ok(funcionarioRequestDTO).build();
+    }
+
+    private FuncionarioRequestDTO convertToFuncionarioRequestDTO(Funcionario funcionario) {
+        UsuarioResquestDTO usuarioResquestDTO = new UsuarioResquestDTO();
+        usuarioResquestDTO.setMatricula(funcionario.getUsuario().getMatricula());
+        usuarioResquestDTO.setSenha(funcionario.getUsuario().getSenha());
+
+        FuncionarioRequestDTO funcionarioRequestDTO = new FuncionarioRequestDTO();
+        funcionarioRequestDTO.setNome(funcionario.getNome());
+        funcionarioRequestDTO.setCargo(funcionario.getCargo());
+        funcionarioRequestDTO.setDiasDaSemana(funcionario.getDiasDaSemana());
+        funcionarioRequestDTO.setEntrada(funcionario.getEntrada());
+        funcionarioRequestDTO.setSaida(funcionario.getSaida());
+        funcionarioRequestDTO.setIntervaloEntrada(funcionario.getIntervaloEntrada());
+        funcionarioRequestDTO.setIntervaloSaida(funcionario.getIntervaloSaida());
+        funcionarioRequestDTO.setUsuarioResquestDTO(usuarioResquestDTO);
+
+        return funcionarioRequestDTO;
+    }
+
+
     private static UsuarioResponseDTO getUsuarioResponseDTO(Funcionario funcionario) {
         UsuarioResponseDTO usuarioResponseDTO = new UsuarioResponseDTO();
         usuarioResponseDTO.setId(funcionario.getUsuario().getId());
