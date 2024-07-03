@@ -1,7 +1,16 @@
-# ClockIn - Seu ponto ao alcance de um click.
-Repositório dedicado ao projeto final da matéria de aplicativos mobile
+# clockin
 
-#### Objetivo do Aplicativo
-O ClockIn é um aplicativo desenvolvido para facilitar o controle de ponto dos funcionários. Ele resolve o problema de gerenciamento manual de horários, oferecendo uma solução digital que permite registrar entradas e saídas de forma prática e precisa. O aplicativo busca aumentar a eficiência e a precisão no acompanhamento do horário de trabalho, reduzindo erros e simplificando a gestão de tempo.
+A new Flutter project.
 
-[Documento de Visão do Aplicativo ClockIn](https://docs.google.com/document/d/1aXpdEw9nLzKST06hpZ-V5WbQMKNQ1ndzuOcDaEJhwCk/edit?usp=sharing)
+## Getting Started
+
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
