@@ -15,6 +15,8 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.Response;
 
 import java.net.URI;
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,15 +64,18 @@ public class FuncinarioResource {
 
     @POST
     public Response postFuncinarios(FuncionarioRequestDTO funcionarioRequestDTO) {
+        if (funcionarioRequestDTO.getUsuarioResquestDTO() == null) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("Campo 'usuarioResquestDTO' é obrigatório.")
+                    .build();
+        }
 
         FuncionarioDTO funcionarioDTO = getFuncionarioDTO(funcionarioRequestDTO);
-
         UsuarioDTO usuarioDTO = getUsuarioDTO(funcionarioRequestDTO);
 
         Funcionario funcionario = gerenciarFuncionario.adicionarFuncionario(funcionarioDTO, usuarioDTO);
 
         return Response.created(URI.create("")).entity(funcionario).build();
-
     }
 
     @POST
@@ -91,7 +96,7 @@ public class FuncinarioResource {
             return Response.created(URI.create("")).entity(p).build();
         }
 
-        return Response.status(Response.Status.BAD_REQUEST).entity("Nuero de ponos não pode ultrapassar 4").build();
+        return Response.status(Response.Status.BAD_REQUEST).entity("Numero de pontos não pode ultrapassar 4").build();
 
     }
 
@@ -106,6 +111,36 @@ public class FuncinarioResource {
 
         FuncionarioRequestDTO funcionarioRequestDTO = convertToFuncionarioRequestDTO(funcionario);
         return Response.ok(funcionarioRequestDTO).build();
+    }
+
+    @GET
+    @Path("/calculos/dia/{matricula}")
+    public Response getSaldoDoDia(@PathParam("matricula") String matricula){
+        Funcionario funcionario = informacoesFuncionario.getFuncionarioPorMatricula(matricula);
+
+        Duration saldo = informacoesFuncionario.getSaldoDoDia(funcionario);
+
+        return Response.status(Response.Status.OK).entity(LocalTime.MIDNIGHT.plus(saldo)).build();
+    }
+
+    @GET
+    @Path("/calculos/mes/{matricula}")
+    public Response getSaldoDoMes(@PathParam("matricula") String matricula){
+        Funcionario funcionario = informacoesFuncionario.getFuncionarioPorMatricula(matricula);
+
+        List<PontosDoMesDTO> pontosDoMes = informacoesFuncionario.getSaldoDoMes(funcionario);
+
+        return Response.status(Response.Status.OK).entity(pontosDoMes).build();
+    }
+
+    @GET
+    @Path("/calculos/{matricula}")
+    public Response getSaldoTotal(@PathParam("matricula") String matricula){
+        Funcionario funcionario = informacoesFuncionario.getFuncionarioPorMatricula(matricula);
+
+        String saldoTotal = informacoesFuncionario.getSaldoTotal(funcionario);
+
+        return Response.status(Response.Status.OK).entity(saldoTotal).build();
     }
 
     private FuncionarioRequestDTO convertToFuncionarioRequestDTO(Funcionario funcionario) {
@@ -125,7 +160,6 @@ public class FuncinarioResource {
 
         return funcionarioRequestDTO;
     }
-
 
     private static UsuarioResponseDTO getUsuarioResponseDTO(Funcionario funcionario) {
         UsuarioResponseDTO usuarioResponseDTO = new UsuarioResponseDTO();
@@ -150,9 +184,14 @@ public class FuncinarioResource {
     }
 
     private static UsuarioDTO getUsuarioDTO(FuncionarioRequestDTO funcionarioRequestDTO) {
+        UsuarioResquestDTO usuarioResquestDTO = funcionarioRequestDTO.getUsuarioResquestDTO();
+        if (usuarioResquestDTO == null) {
+            throw new IllegalArgumentException("Campo 'usuarioResquestDTO' não pode ser nulo");
+        }
+
         UsuarioDTO usuarioDTO = new UsuarioDTO();
-        usuarioDTO.setMatricula(funcionarioRequestDTO.getUsuarioResquestDTO().getMatricula());
-        usuarioDTO.setSenha(funcionarioRequestDTO.getUsuarioResquestDTO().getSenha());
+        usuarioDTO.setMatricula(usuarioResquestDTO.getMatricula());
+        usuarioDTO.setSenha(usuarioResquestDTO.getSenha());
         return usuarioDTO;
     }
 

@@ -1,6 +1,7 @@
 package com.emanu.UseCase;
 
 import com.emanu.DTO.PontoResponseDTO;
+import com.emanu.DTO.PontosDoMesDTO;
 import com.emanu.Domain.Funcionario;
 import com.emanu.Domain.Ponto;
 import com.emanu.Domain.Usuario;
@@ -10,6 +11,8 @@ import com.emanu.Repository.UsuarioRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
+import java.time.Duration;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,5 +55,17 @@ public class InformacoesFuncionario {
 
     public List<Usuario> getUsuarios(){
         return usuarioRepository.listAll();
+    }
+
+    public Duration getSaldoDoDia(Funcionario funcionario){
+        return pontoRepository.calcularSaldoDia(funcionario, LocalDate.now());
+    }
+
+    public List<PontosDoMesDTO> getSaldoDoMes(Funcionario funcionario){
+        return pontoRepository.calcularSaldoMes(funcionario, LocalDate.now().getMonthValue(), LocalDate.now().getYear());
+    }
+
+    public String getSaldoTotal(Funcionario funcionario){
+        return pontoRepository.calcularSaldoTotal(funcionario);
     }
 }
