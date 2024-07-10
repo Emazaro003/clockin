@@ -105,7 +105,7 @@ public class PontoRepository implements PanacheRepository<Ponto> {
             Duration saldoDoDia = horasTrabalhadas.minus(horasEsperadas);
             System.out.println(saldoDoDia + " " + horasTrabalhadas + " " + horasEsperadas);
             saldoTotal.set(saldoTotal.get().plus(saldoDoDia));
-            saldoMes.add(new PontosDoMesDTO(LocalTime.MIDNIGHT.plus(horasTrabalhadas), data, formatDuration(saldoTotal.get())));
+            saldoMes.add(new PontosDoMesDTO(LocalTime.MIDNIGHT.plus(horasTrabalhadas), data, formatDuration(saldoDoDia)));
         });
 
         return saldoMes;
