@@ -100,7 +100,7 @@ public class PontoRepository implements PanacheRepository<Ponto> {
 
 
         pontosAgrupados.forEach((data, pontosDoDia) -> {
-            Duration horasEsperadas = Duration.between(funcionario.getEntrada(), funcionario.getIntervaloSaida()).plus(Duration.between(funcionario.getIntervaloEntrada(), funcionario.getSaida()));
+            Duration horasEsperadas = Duration.between(funcionario.getEntrada(), funcionario.getIntervaloEntrada()).plus(Duration.between(funcionario.getIntervaloSaida(), funcionario.getSaida()));
             Duration horasTrabalhadas = calcularSaldoDia1(funcionario, pontosDoDia, data);
             Duration saldoDoDia = horasTrabalhadas.minus(horasEsperadas);
             System.out.println(saldoDoDia + " " + horasTrabalhadas + " " + horasEsperadas);
@@ -120,7 +120,7 @@ public class PontoRepository implements PanacheRepository<Ponto> {
 
 
         pontosAgrupados.forEach((data, pontosDoDia) -> {
-            Duration horasEsperadas = Duration.between(funcionario.getEntrada(), funcionario.getIntervaloSaida()).plus(Duration.between(funcionario.getIntervaloEntrada(), funcionario.getSaida()));
+            Duration horasEsperadas = Duration.between(funcionario.getEntrada(), funcionario.getIntervaloEntrada()).plus(Duration.between(funcionario.getIntervaloSaida(), funcionario.getSaida()));
             Duration horasTrabalhadas = calcularSaldoDia1(funcionario, pontosDoDia, data);
             Duration saldoDoDia = horasTrabalhadas.minus(horasEsperadas);
             System.out.println(saldoDoDia + " " + horasTrabalhadas + " " + horasEsperadas);
