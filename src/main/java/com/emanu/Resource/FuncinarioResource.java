@@ -75,6 +75,10 @@ public class FuncinarioResource {
 
         Funcionario funcionario = gerenciarFuncionario.adicionarFuncionario(funcionarioDTO, usuarioDTO);
 
+        if (funcionario == null) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Matricula já existe").build();
+        }
+
         return Response.created(URI.create("")).entity(funcionario).build();
     }
 

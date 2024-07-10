@@ -40,6 +40,11 @@ public class GerenciarFuncionario {
     ){
         Usuario usuario = dtoToDomain.usuario(usuarioDTO, TipoUsuario.FUNCIONARIO);
 
+        Usuario usuarioJaExiste = usuarioRepository.listAll().stream().filter(u -> u.getMatricula().equals(usuario.getMatricula())).findFirst().orElse(null);
+        if (usuarioJaExiste != null) {
+            return null;
+        }
+
         usuarioRepository.persist(usuario);
 
         Funcionario funcionario = dtoToDomain.funcionario(funcionarioDTO);;
