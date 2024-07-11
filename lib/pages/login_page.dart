@@ -23,6 +23,7 @@ class _LoginPageState extends State<LoginPage> {
   final FocusNode _matriculaFocusNode = FocusNode();
   final TextEditingController _senhaController = TextEditingController();
   final FocusNode _senhaFocusNode = FocusNode();
+  bool _isObscure = true;
 
   @override
   void initState() {
@@ -251,48 +252,68 @@ class _LoginPageState extends State<LoginPage> {
                                                             _senhaController,
                                                         focusNode:
                                                             _senhaFocusNode,
+                                                        obscureText: _isObscure,
                                                         decoration:
                                                             InputDecoration(
-                                                                border:
-                                                                    OutlineInputBorder(
-                                                                  borderSide: BorderSide(
-                                                                      color:
-                                                                          corBase,
-                                                                      width: 1.5
-                                                                          .w),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              15.r),
-                                                                ),
-                                                                focusedBorder:
-                                                                    OutlineInputBorder(
-                                                                  borderSide: BorderSide(
-                                                                      color:
-                                                                          corBase,
-                                                                      width: 1.5
-                                                                          .w),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              15.r),
-                                                                ),
-                                                                enabledBorder:
-                                                                    OutlineInputBorder(
-                                                                  borderSide: BorderSide(
-                                                                      color:
-                                                                          corBase,
-                                                                      width: 1.5
-                                                                          .w),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              15.r),
-                                                                )),
+                                                          border:
+                                                              OutlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                              color: corBase,
+                                                              width: 1.5.w,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        15.r),
+                                                          ),
+                                                          focusedBorder:
+                                                              OutlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                              color: corBase,
+                                                              width: 1.5.w,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        15.r),
+                                                          ),
+                                                          enabledBorder:
+                                                              OutlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                              color: corBase,
+                                                              width: 1.5.w,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        15.r),
+                                                          ),
+                                                          suffixIcon:
+                                                              IconButton(
+                                                            icon: Icon(
+                                                              _isObscure
+                                                                  ? Icons
+                                                                      .visibility
+                                                                  : Icons
+                                                                      .visibility_off,
+                                                              color:
+                                                                  Colors.grey,
+                                                            ),
+                                                            onPressed: () {
+                                                              setState(() {
+                                                                _isObscure =
+                                                                    !_isObscure;
+                                                              });
+                                                            },
+                                                          ),
+                                                        ),
                                                         style: TextStyle(
-                                                            fontSize: 15.sp,
-                                                            color:
-                                                                Colors.black),
+                                                          fontSize: 15.sp,
+                                                          color: Colors.black,
+                                                        ),
                                                       ),
                                                     ],
                                                   ),

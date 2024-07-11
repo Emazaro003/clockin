@@ -4,6 +4,7 @@ import 'package:clockin/api/call_api.dart';
 import 'package:clockin/components/alert.dart';
 import 'package:clockin/components/colors.dart';
 import 'package:clockin/dataBase/db_login.dart';
+import 'package:clockin/pages/cadastro_page.dart';
 import 'package:clockin/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -40,6 +41,15 @@ class _HomeADMPageState extends State<HomeADMPage> {
     log('Deslogado');
   }
 
+  void _cadastrar() async {
+    await dbHelper.deleteAllUsers();
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const CadastroPage()),
+    );
+    log('Tela Cadastro');
+  }
+
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting('pt_BR');
@@ -63,8 +73,9 @@ class _HomeADMPageState extends State<HomeADMPage> {
                 onSelected: (value) {
                   switch (value) {
                     case 'Cadastrar funcionário':
-                      Alert.showToast("Em Desenvolvimento", Colors.orange,
-                          ToastGravity.CENTER);
+                      _cadastrar();
+                      // Alert.showToast("Em Desenvolvimento", Colors.orange,
+                      //     ToastGravity.CENTER);
                       break;
                     case 'Logout':
                       _logout();

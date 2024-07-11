@@ -41,6 +41,7 @@ dependencies:
   fluttertoast: ^8.2.5
   sqflite: ^2.3.0
   path: ^1.9.0
+  duration: ^3.0.13
 
 dev_dependencies:
   flutter_test:

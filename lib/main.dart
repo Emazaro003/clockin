@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:clockin/dataBase/db_login.dart';
 import 'package:clockin/pages/home_adm_page.dart';
 import 'package:clockin/pages/home_page.dart';
@@ -20,7 +22,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   DatabaseHelper dbHelper = DatabaseHelper();
   Widget tela = const LoginPage();
-  late String tipoUsuario;
+  late String? tipoUsuario;
   bool isLogado = false;
 
   @override
@@ -32,7 +34,8 @@ class _MyAppState extends State<MyApp> {
   Future<void> _checkLoginStatus() async {
     Map<String, dynamic> userData = await dbHelper.isLoggedIn();
     tipoUsuario = userData['tipoUsuario'];
-    isLogado = tipoUsuario != "" ? true : false;
+    isLogado = tipoUsuario != null ? true : false;
+    log("$tipoUsuario,$isLogado");
     _loadNextScreen(isLogado);
   }
 
